@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="TechChallenge">
+    <property environment="env"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="17"/>
+    <property name="source" value="17"/>
+    <path id="Ivy.libraryclasspath">
+        <pathelement location="../../.ivy2/cache/org.yaml/snakeyaml/bundles/snakeyaml-1.21.jar"/>
+        <pathelement location="../../.ivy2/cache/org.apache.commons/commons-lang3/jars/commons-lang3-3.4.jar"/>
+        <pathelement location="../../.ivy2/cache/commons-io/commons-io/jars/commons-io-2.5.jar"/>
+        <pathelement location="../../.ivy2/cache/org.springframework/spring-core/jars/spring-core-3.2.17.RELEASE.jar"/>
+        <pathelement location="../../.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.1.3.jar"/>
+        <pathelement location="../../.ivy2/cache/org.springframework/spring-beans/jars/spring-beans-3.2.17.RELEASE.jar"/>
+        <pathelement location="../../.ivy2/cache/org.springframework/spring-context-support/jars/spring-context-support-3.2.17.RELEASE.jar"/>
+        <pathelement location="../../.ivy2/cache/org.springframework/spring-context/jars/spring-context-3.2.17.RELEASE.jar"/>
+        <pathelement location="../../.ivy2/cache/org.springframework/spring-aop/jars/spring-aop-3.2.17.RELEASE.jar"/>
+        <pathelement location="../../.ivy2/cache/aopalliance/aopalliance/jars/aopalliance-1.0.jar"/>
+        <pathelement location="../../.ivy2/cache/org.springframework/spring-expression/jars/spring-expression-3.2.17.RELEASE.jar"/>
+        <pathelement location="../../.ivy2/cache/org.apache.velocity/velocity/jars/velocity-1.6.2.jar"/>
+        <pathelement location="../../.ivy2/cache/commons-collections/commons-collections/jars/commons-collections-3.2.1.jar"/>
+        <pathelement location="../../.ivy2/cache/commons-lang/commons-lang/jars/commons-lang-2.4.jar"/>
+        <pathelement location="../../.ivy2/cache/oro/oro/jars/oro-2.0.8.jar"/>
+        <pathelement location="../../.ivy2/cache/joda-time/joda-time/jars/joda-time-1.6.jar"/>
+        <pathelement location="../../.ivy2/cache/junit/junit/jars/junit-4.13.1.jar"/>
+        <pathelement location="../../.ivy2/cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar"/>
+        <pathelement location="../../.ivy2/cache/org.hamcrest/hamcrest-library/jars/hamcrest-library-1.3.jar"/>
+        <pathelement location="../../.ivy2/cache/org.mockito/mockito-all/jars/mockito-all-1.9.5.jar"/>
+    </path>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="../../.p2/pool/plugins/org.junit_4.13.2.v20211018-1956.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+    </path>
+    <path id="TechChallenge.classpath">
+        <pathelement location="build/classes"/>
+        <path refid="Ivy.libraryclasspath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.InputParserTest (1).classpath">
+        <path refid="TechChallenge.classpath"/>
+        <path refid="Ivy.libraryclasspath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.InputParserTest.convertYamlToList.classpath">
+        <path refid="TechChallenge.classpath"/>
+        <path refid="Ivy.libraryclasspath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.InputReaderTest.classpath">
+        <path refid="TechChallenge.classpath"/>
+        <path refid="Ivy.libraryclasspath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.InputReaderTest.readOidFromSysInTest.classpath">
+        <path refid="TechChallenge.classpath"/>
+        <path refid="Ivy.libraryclasspath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.Launcher (1).classpath">
+        <path refid="TechChallenge.classpath"/>
+        <path refid="Ivy.libraryclasspath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <path id="run.OIDFilterTest.classpath">
+        <path refid="TechChallenge.classpath"/>
+        <path refid="Ivy.libraryclasspath"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="build/classes"/>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="src/main/java">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="etc/config/files">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="src/test/java/unit">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="build/classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+	
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src/main/java"/>
+            <src path="etc/config/files"/>
+            <src path="src/test/java/unit"/>
+            <classpath refid="TechChallenge.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+	
+	<target name="jar">
+	        <mkdir dir="output"/>
+	        <jar destfile="output/TechChallenge.jar" basedir=".">
+	            <manifest>
+	                <attribute name="Main-Class" value="src.main.java.openNMSChallenge.Launcher"/>
+	            </manifest>
+	        </jar>
+	    </target>
+
+	    <target name="run">
+	        <java jar="output/TechChallenge.jar" fork="true"/>
+	    </target>
+</project>
